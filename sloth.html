@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Discovery Platform</title>
+    <style>
+        /* Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f6f2;
+            color: #333;
+        }
+
+        header {
+            background-color: #004e92;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #004e92;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #006bbf;
+        }
+
+        /* Main Layout */
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .navigation {
+            width: 20%;
+            background-color: #eaf0f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navigation h2 {
+            color: #004e92;
+            margin-bottom: 15px;
+        }
+
+        .navigation a {
+            display: block;
+            text-decoration: none;
+            color: #004e92;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f7f6f2;
+            transition: background-color 0.3s;
+        }
+
+        .navigation a:hover {
+            background-color: #dfe4ea;
+        }
+
+        .content {
+            width: 75%;
+            margin-left: 20px;
+        }
+
+        /* Post and Comments Section */
+        .post, .new-post, .comment {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .post:hover, .comment:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .post h3, .new-post h3 {
+            margin-bottom: 10px;
+            color: #004e92;
+        }
+
+        .post p, .comment p {
+            margin-bottom: 10px;
+        }
+
+        .comment-section {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #e3e3e3;
+        }
+
+        .comment-section h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Comment Box Styling */
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .comment {
+            background-color: #f7f6f2;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .comment p {
+            margin-bottom: 5px;
+        }
+
+        .comment small {
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* Create Post Form */
+        .create-post-form {
+            margin: 20px 0;
+        }
+
+        .create-post-form input[type="text"], .create-post-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .create-post-form button {
+            background-color: #004e92;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .create-post-form button:hover {
+            background-color: #006bbf;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            /* Stacking the sidebar and content */
+            main {
+                flex-direction: column;
+            }
+
+            .navigation {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .content {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Adjust padding and font sizes for smaller screens */
+            header, nav, .post, .comment, .create-post-form, .navigation, .content {
+                padding: 10px;
+            }
+
+            header {
+                font-size: 1.5rem;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .post h3, .new-post h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Music Discovery Platform</h1>
+</header>
+
+<!-- Navigation Bar -->
+<nav>
+    <a href="#" onclick="loadPage('home')">Home</a>
+    <a href="#" onclick="loadPage('discover')">Discover</a>
+    <a href="#" onclick="loadPage('trending')">Trending</a>
+    <a href="#" onclick="loadPage('genres')">Genres</a>
+    <a href="#" onclick="loadPage('about')">About</a>
+</nav>
+
+<main>
+    <!-- Sidebar Navigation -->
+    <aside class="navigation">
+        <h2>Explore</h2>
+        <a href="#" onclick="loadPage('recent')">Recent Posts</a>
+        <a href="#">Your Favorites (empty)</a>
+        <a href="#">Create a Playlist (empty)</a>
+    </aside>
+
+    <!-- Content Section -->
+    <section class="content" id="content">
+        <h2>Home</h2>
+        
+        <!-- Create Post Form -->
+        <div class="create-post-form">
+            <h3>Create a New Post</h3>
+            <input type="text" id="postTitle" placeholder="Post Title">
+            <textarea id="postContent" placeholder="Share something new..."></textarea>
+            <button onclick="createPost()">Post</button>
+        </div>
+
+        <!-- Example Posts -->
+        <article class="post">
+            <h3>👾 NPC Update</h3>
+            <p><strong>NPC Team:</strong> We just released an update for NPC! Now you can interact with characters in a new way! What do you think?</p>
+            <div class="comment-section">
+                <h4>Comments:</h4>
+                <input type="text" class="comment-input" placeholder="Add a comment..." onkeypress="if(event.key === 'Enter') addComment(event, this)">
+                <div class="comments-list">
+                    <!-- Comments will appear here -->
+                </div>
+            </div>
+        </article>
+
+        <article class="post">
+            <h3>🎶 New Album Alert</h3>
+            <p><strong>Jessie:</strong> Just dropped a new album! Check it out and let me know your thoughts.</p>
+            <div class="comment-section">
+                <h4>Comments:</h4>
+                <input type="text" class="comment-input" placeholder="Add a comment..." onkeypress="if(event.key === 'Enter') addComment(event, this)">
+                <div class="comments-list">
+                    <!-- Comments will appear here -->
+                </div>
+            </div>
+        </article>
+
+        <article class="post">
+            <h3>🎤 Concert Tonight!</h3>
+            <p><strong>Michael:</strong> I'm heading to a concert tonight! Who's joining me?</p>
+            <div class="comment-section">
+                <h4>Comments:</h4>
+                <input type="text" class="comment-input" placeholder="Add a comment..." onkeypress="if(event.key === 'Enter') addComment(event, this)">
+                <div class="comments-list">
+                    <!-- Comments will appear here -->
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
+
+<script>
+    // Create Post Function
+    function createPost() {
+        const title = document.getElementById('postTitle').value;
+        const content = document.getElementById('postContent').value;
+
+        if (title && content) {
+            const newPost = document.createElement('article');
+            newPost.className = 'post';
+            newPost.innerHTML = `
+                <h3>${title}</h3>
+                <p><strong>You:</strong> ${content}</p>
+                <div class="comment-section">
+                    <h4>Comments:</h4>
+                    <input type="text" class="comment-input" placeholder="Add a comment..." onkeypress="if(event.key === 'Enter') addComment(event, this)">
+                    <div class="comments-list"></div>
+                </div>
+            `;
+
+            document.querySelector('.content').appendChild(newPost);
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postContent').value = '';
+        }
+    }
+
+    // Add Comment Function with Time
+    function addComment(event, input) {
+        const commentText = input.value;
+        if (commentText) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const comment = document.createElement('div');
+            comment.className = 'comment';
+            comment.innerHTML = `<p>${commentText}</p><small>${timeString}</small>`;
+
+            input.parentElement.querySelector('.comments-list').appendChild(comment);
+            input.value = '';
+        }
+    }
+
+    // Page Loading Function
+    function loadPage(page) {
+        const content = document.getElementById('content');
+        let newContent = '';
+
+        switch (page) {
+            case 'home':
+                newContent = `
+                    <h2>Home</h2>
+                    <div class="create-post-form">
+                        <h3>Create a New Post</h3>
+                        <input type="text" id="postTitle" placeholder="Post Title">
+                        <textarea id="postContent" placeholder="Share something new..."></textarea>
+                        <button onclick="createPost()">Post</button>
+                    </div>
+                `;
+                break;
+            case 'discover':
+                newContent = `<h2>Discover</h2><p>Explore new music and trends!</p>`;
+                break;
+            case 'trending':
+                newContent = `<h2>Trending</h2><p>See what's popular right now!</p>`;
+                break;
+            case 'genres':
+                newContent = `<h2>Genres</h2><p>Explore music by genres.</p>`;
+                break;
+            case 'about':
+                newContent = `<h2>About</h2><p>This platform is created by Grade 10-STE students from Calbiga National High School.</p>`;
+                break;
+            default:
+                newContent = `<h2>404 - Page not found</h2>`;
+                break;
+        }
+
+        content.innerHTML = newContent;
+    }
+</script>
+
+</body>
+</html>
